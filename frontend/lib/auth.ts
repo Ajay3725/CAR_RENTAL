@@ -11,7 +11,7 @@ export interface Session {
 }
 
 function sessionSecret(): string {
-  const secret = process.env.SESSION_SECRET;
+  const secret = process.env.SESSION_SECRET || process.env.JWT_SECRET;
   if (!secret || secret.length < 32) {
     throw new Error("SESSION_SECRET must contain at least 32 characters.");
   }

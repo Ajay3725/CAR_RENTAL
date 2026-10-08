@@ -49,7 +49,8 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error("Login failed:", error);
-    if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
+    const secret = process.env.SESSION_SECRET || process.env.JWT_SECRET;
+    if (!secret || secret.length < 32) {
       return NextResponse.json(
         { error: "SESSION_SECRET is missing or too short. Set a secret of at least 32 characters in .env.local." },
         { status: 503 }
